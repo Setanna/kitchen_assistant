@@ -12,7 +12,19 @@ class ThemeClass {
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: _themeClass.lightPrimaryColor,
-        foregroundColor: Colors.white
+        foregroundColor: Colors.white,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.black),
+        hintStyle: TextStyle(color: Colors.grey),
+      ),
+      textTheme: const TextTheme(
+        titleLarge: TextStyle(color: Colors.black),
+        titleMedium: TextStyle(color: Colors.black),
+        titleSmall: TextStyle(color: Colors.black),
+        bodyLarge: TextStyle(color: Colors.black),
+        bodyMedium: TextStyle(color: Colors.black),
+        bodySmall: TextStyle(color: Colors.black),
       ),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
@@ -34,6 +46,18 @@ class ThemeClass {
       appBarTheme: AppBarTheme(
           backgroundColor: _themeClass.darkPrimaryColor,
           foregroundColor: Colors.white
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.white),
+        hintStyle: TextStyle(color: Colors.grey),
+      ),
+      textTheme: const TextTheme(
+        titleLarge: TextStyle(color: Colors.white),
+        titleMedium: TextStyle(color: Colors.white),
+        titleSmall: TextStyle(color: Colors.white),
+        bodyLarge: TextStyle(color: Colors.white),
+        bodyMedium: TextStyle(color: Colors.white),
+        bodySmall: TextStyle(color: Colors.white),
       ),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
