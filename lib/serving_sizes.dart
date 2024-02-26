@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ServingSizes extends StatelessWidget {
   const ServingSizes({super.key});
@@ -9,36 +10,56 @@ class ServingSizes extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Serving Sizes'),
       ),
-      body: Center(
-        child: GridView.count(
-          padding: const EdgeInsets.all(10),
-          crossAxisCount: 3,
-          crossAxisSpacing: 5.0,
-          mainAxisSpacing: 5.0,
-          children: const [
-            TextField(
-              textAlign: TextAlign.center,
-              autofocus: true,
-              decoration: InputDecoration(
-                labelText: 'Original Servings',
-                floatingLabelAlignment: FloatingLabelAlignment.center,
-                hintText: 'Serving size',
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  autofocus: true,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(
+                    labelText: 'Original Servings',
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    alignLabelWithHint: true,
+                    hintText: 'Serving size',
+                  ),
+                ),
               ),
-            ),
-            Icon(
-              Icons.arrow_forward_rounded,
-              size: 30.0,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                labelText: 'New Servings',
-                floatingLabelAlignment: FloatingLabelAlignment.center,
-                hintText: 'Serving size',
+              const Expanded(
+                flex: 2,
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  size: 30.0,
+                ),
               ),
-            ),
-          ],
-        ),
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(
+                    labelText: 'New Servings',
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    alignLabelWithHint: true,
+                    hintText: 'Serving size',
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text("Add Ingredient"))
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -23,6 +23,12 @@ class ThemeClass {
         activeIndicatorBorder: BorderSide(color: Colors.lightBlue),
         enabledBorder: InputBorder.none,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+      ),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.black),
         titleMedium: TextStyle(color: Colors.black),
@@ -59,6 +65,13 @@ class ThemeClass {
         hintStyle: TextStyle(color: Colors.grey),
         activeIndicatorBorder: BorderSide(color: Colors.indigoAccent),
         enabledBorder: InputBorder.none,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.indigoAccent),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
       ),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white),
