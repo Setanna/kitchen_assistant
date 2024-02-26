@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitchen_assistant/Serving%20Sizes.dart';
 import 'package:kitchen_assistant/theme.dart';
 
 void main() {
@@ -35,15 +36,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(widget.title),
           centerTitle: true),
       body: Center(
         child: Column(
           children: [
             TextButton(
-              onPressed: () {},
-              child: const Text("Portions"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ServingSizes()),
+                );
+              },
+              child: const Text("Serving Sizes"),
             )
           ],
         ),
