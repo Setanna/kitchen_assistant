@@ -10,6 +10,10 @@ class ThemeClass {
         primary: _themeClass.lightPrimaryColor,
         background: Colors.white,
       ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: _themeClass.lightPrimaryColor,
+        foregroundColor: Colors.white
+      ),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(
@@ -26,6 +30,10 @@ class ThemeClass {
       colorScheme: const ColorScheme.dark().copyWith(
         primary: _themeClass.darkPrimaryColor,
         background: Colors.indigo.shade800,
+      ),
+      appBarTheme: AppBarTheme(
+          backgroundColor: _themeClass.darkPrimaryColor,
+          foregroundColor: Colors.white
       ),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
