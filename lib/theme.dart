@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ThemeClass {
   Color lightPrimaryColor = Colors.lightBlue;
-  Color darkPrimaryColor = Colors.indigo;
+  Color darkPrimaryColor = Colors.indigoAccent;
 
   static ThemeData lightTheme = ThemeData(
       useMaterial3: true,
@@ -14,9 +14,14 @@ class ThemeClass {
         backgroundColor: _themeClass.lightPrimaryColor,
         foregroundColor: Colors.white,
       ),
+      iconTheme: IconThemeData(
+        color: _themeClass.lightPrimaryColor,
+      ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
         hintStyle: TextStyle(color: Colors.grey),
+        activeIndicatorBorder: BorderSide(color: Colors.lightBlue),
+        enabledBorder: InputBorder.none,
       ),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.black),
@@ -45,11 +50,15 @@ class ThemeClass {
       ),
       appBarTheme: AppBarTheme(
           backgroundColor: _themeClass.darkPrimaryColor,
-          foregroundColor: Colors.white
+          foregroundColor: Colors.white),
+      iconTheme: IconThemeData(
+        color: _themeClass.darkPrimaryColor,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.white),
         hintStyle: TextStyle(color: Colors.grey),
+        activeIndicatorBorder: BorderSide(color: Colors.indigoAccent),
+        enabledBorder: InputBorder.none,
       ),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white),
