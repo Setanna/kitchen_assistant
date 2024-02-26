@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_assistant/Serving%20Sizes.dart';
+import 'package:kitchen_assistant/serving_sizes.dart';
 import 'package:kitchen_assistant/theme.dart';
 
 void main() {
