@@ -22,6 +22,7 @@ class ThemeClass {
         hintStyle: TextStyle(color: Colors.grey),
         activeIndicatorBorder: BorderSide(color: Colors.lightBlue),
         enabledBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
@@ -65,6 +66,7 @@ class ThemeClass {
         hintStyle: TextStyle(color: Colors.grey),
         activeIndicatorBorder: BorderSide(color: Colors.indigoAccent),
         enabledBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
