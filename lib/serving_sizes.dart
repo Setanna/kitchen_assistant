@@ -11,14 +11,13 @@ class ServingSizes extends StatefulWidget {
 class Ingredient {
   final String name;
   final String unit;
-  final int amount;
 
-  Ingredient(this.name, this.unit, this.amount);
+  Ingredient(this.name, this.unit);
 }
 
 class ServingSizesState extends State<ServingSizes> {
-  List<Ingredient> ingredients = [Ingredient("Minced Meat", "kg", 2)];
-  List<Ingredient> reversedIngredients = [Ingredient("Minced Meat", "kg", 2)];
+  List<Ingredient> ingredients = [Ingredient("Minced Meat", "kg")];
+  List<Ingredient> reversedIngredients = [Ingredient("Minced Meat", "kg")];
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,7 @@ class ServingSizesState extends State<ServingSizes> {
               ElevatedButton(
                   onPressed: () {
                     ingredients.insert(
-                        ingredients.length, Ingredient("test", "test", 2));
+                        ingredients.length, Ingredient("test", "test"));
                     reversedIngredients = ingredients.reversed.toList();
                     setState(() {});
                   },
