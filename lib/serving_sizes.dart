@@ -80,10 +80,7 @@ class ServingSizesState extends State<ServingSizes> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    ingredients.insert(
-                        ingredients.length, Ingredient("test", "test"));
-                    reversedIngredients = ingredients.reversed.toList();
-                    setState(() {});
+                    _dialogBuilder(context);
                   },
                   child: const Text("Add Ingredient"))
             ],
@@ -108,15 +105,23 @@ class ServingSizesState extends State<ServingSizes> {
         children: [
           Expanded(
             flex: 3,
-            child: TextField(
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                labelText: ingredients[index].name,
-                floatingLabelAlignment: FloatingLabelAlignment.center,
-                alignLabelWithHint: true,
-                hintText: 'Original Ingredient',
+            child: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                  labelText: ingredients[index].name,
+                  floatingLabelAlignment: FloatingLabelAlignment.center,
+                  alignLabelWithHint: true,
+                  hintText: ingredients[index].unit,
+                  suffix: Align(
+                    widthFactor: 0,
+                    child: Text(ingredients[index].unit),
+                  ),
+                  suffixStyle: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
             ),
           ),
@@ -134,16 +139,89 @@ class ServingSizesState extends State<ServingSizes> {
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
-                labelText: 'New Ingredient',
+              decoration: InputDecoration(
+                labelText: ingredients[index].name,
                 floatingLabelAlignment: FloatingLabelAlignment.center,
                 alignLabelWithHint: true,
-                hintText: 'New Ingredient',
+                hintText: ingredients[index].unit,
+                suffixText: ingredients[index].unit,
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    final ingredient = TextEditingController();
+    final unit = TextEditingController();
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Add ingredient',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  controller: ingredient,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    labelText: "Ingredient name",
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    alignLabelWithHint: true,
+                    hintText: "Ingredient name",
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  controller: unit,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    labelText: "Unit",
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    alignLabelWithHint: true,
+                    hintText: "Kg, dl, amount",
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Save'),
+              onPressed: () {
+                ingredients.insert(
+                    ingredients.length, Ingredient(ingredient.text, unit.text));
+                reversedIngredients = ingredients.reversed.toList();
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Discard'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
