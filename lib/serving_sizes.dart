@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -43,6 +41,7 @@ class ServingSizesState extends State<ServingSizes> {
     super.dispose();
   }
 
+  @override
   initState() {
     super.initState();
     ratio.addListener(() {
@@ -96,7 +95,6 @@ class ServingSizesState extends State<ServingSizes> {
                     if (text.isNotEmpty) {
                       ratio.value = int.parse(newServingSize.text) /
                           int.parse(originalServingSize.text);
-                      log("$ratio");
                     }
                   },
                 ),
@@ -125,7 +123,6 @@ class ServingSizesState extends State<ServingSizes> {
                     if (text.isNotEmpty) {
                       ratio.value = int.parse(newServingSize.text) /
                           int.parse(originalServingSize.text);
-                      log("$ratio");
                     }
                   },
                 ),
