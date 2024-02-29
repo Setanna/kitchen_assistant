@@ -27,6 +27,22 @@ class ServingSizesState extends State<ServingSizes> {
   ValueNotifier<double> ratio = ValueNotifier(0);
 
   @override
+  void dispose() {
+    /* Discards any resources used by the object. After this is called,
+    the object is not in a usable state and should be discarded
+    (calls to addListener will throw after the object is disposed) */
+    ratio.dispose();
+    newServingSize.dispose();
+    originalServingSize.dispose();
+    for (var controller in newIngredientControllers) {
+      controller.dispose();
+    }
+    for (var controller in oldIngredientControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
   initState() {
     super.initState();
     ratio.addListener(() {
