@@ -176,15 +176,11 @@ class ServingSizesState extends State<ServingSizes> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                labelText: ingredients[index].name,
+                labelText:
+                    "${ingredients[index].name} (${ingredients[index].unit})",
                 floatingLabelAlignment: FloatingLabelAlignment.center,
                 alignLabelWithHint: true,
                 hintText: ingredients[index].unit,
-                suffix: Align(
-                  widthFactor: 0,
-                  child: Text(ingredients[index].unit),
-                ),
-                suffixStyle: Theme.of(context).textTheme.bodyLarge,
               ),
               onChanged: (text) {
                 if (text.isNotEmpty) {
@@ -216,15 +212,11 @@ class ServingSizesState extends State<ServingSizes> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                labelText: ingredients[index].name,
+                labelText:
+                    "${ingredients[index].name} (${ingredients[index].unit})",
                 floatingLabelAlignment: FloatingLabelAlignment.center,
                 alignLabelWithHint: true,
                 hintText: ingredients[index].unit,
-                suffix: Align(
-                  widthFactor: 0,
-                  child: Text(ingredients[index].unit),
-                ),
-                suffixStyle: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
