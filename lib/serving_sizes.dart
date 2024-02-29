@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,6 +20,36 @@ class Ingredient {
 class ServingSizesState extends State<ServingSizes> {
   List<Ingredient> ingredients = [Ingredient("Minced Meat", "kg")];
   List<Ingredient> reversedIngredients = [Ingredient("Minced Meat", "kg")];
+  List<TextEditingController> oldIngredientControllers = [];
+  List<TextEditingController> newIngredientControllers = [];
+  final newServingSize = TextEditingController();
+  final originalServingSize = TextEditingController();
+  ValueNotifier<double> ratio = ValueNotifier(0);
+
+  @override
+  initState() {
+    super.initState();
+    ratio.addListener(() {
+      for (var ingredient in oldIngredientControllers) {
+        int index = oldIngredientControllers.indexOf(ingredient);
+
+        if (ingredient.text.isNotEmpty && int.parse(ingredient.text) != 0) {
+          if (ratio.value != 0) {
+            if (ingredient.text.isNotEmpty) {
+              double newIngredientValue =
+                  (double.parse(ingredient.text) * ratio.value.toDouble())
+                      .toDouble();
+              newIngredientControllers[index].text = newIngredientValue % 1 == 0
+                  ? newIngredientValue.toInt().toString()
+                  : newIngredientValue.toStringAsFixed(1);
+            } else {
+              newIngredientControllers[index].text = "";
+            }
+          }
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +65,7 @@ class ServingSizesState extends State<ServingSizes> {
               Expanded(
                 flex: 3,
                 child: TextField(
+                  controller: originalServingSize,
                   textAlign: TextAlign.center,
                   autofocus: true,
                   keyboardType: TextInputType.number,
@@ -43,6 +76,13 @@ class ServingSizesState extends State<ServingSizes> {
                     alignLabelWithHint: true,
                     hintText: 'Serving size',
                   ),
+                  onChanged: (text) {
+                    if (text.isNotEmpty) {
+                      ratio.value = int.parse(newServingSize.text) /
+                          int.parse(originalServingSize.text);
+                      log("$ratio");
+                    }
+                  },
                 ),
               ),
               const Expanded(
@@ -55,6 +95,7 @@ class ServingSizesState extends State<ServingSizes> {
               Expanded(
                 flex: 3,
                 child: TextField(
+                  controller: newServingSize,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -64,6 +105,13 @@ class ServingSizesState extends State<ServingSizes> {
                     alignLabelWithHint: true,
                     hintText: 'Serving size',
                   ),
+                  onChanged: (text) {
+                    if (text.isNotEmpty) {
+                      ratio.value = int.parse(newServingSize.text) /
+                          int.parse(originalServingSize.text);
+                      log("$ratio");
+                    }
+                  },
                 ),
               ),
             ],
@@ -91,12 +139,16 @@ class ServingSizesState extends State<ServingSizes> {
   }
 
   _buildRow(index) {
+    oldIngredientControllers.add(TextEditingController());
+    newIngredientControllers.add(TextEditingController());
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (direction) {
         // Remove the item from the data source.
         setState(() {
           ingredients.removeAt(index);
+          oldIngredientControllers.removeAt(index);
+          newIngredientControllers.removeAt(index);
           reversedIngredients = ingredients.reversed.toList();
         });
       },
@@ -105,24 +157,34 @@ class ServingSizesState extends State<ServingSizes> {
         children: [
           Expanded(
             flex: 3,
-            child: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
-                  labelText: ingredients[index].name,
-                  floatingLabelAlignment: FloatingLabelAlignment.center,
-                  alignLabelWithHint: true,
-                  hintText: ingredients[index].unit,
-                  suffix: Align(
-                    widthFactor: 0,
-                    child: Text(ingredients[index].unit),
-                  ),
-                  suffixStyle: Theme.of(context).textTheme.bodyLarge,
+            child: TextField(
+              controller: oldIngredientControllers[index],
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                labelText: ingredients[index].name,
+                floatingLabelAlignment: FloatingLabelAlignment.center,
+                alignLabelWithHint: true,
+                hintText: ingredients[index].unit,
+                suffix: Align(
+                  widthFactor: 0,
+                  child: Text(ingredients[index].unit),
                 ),
+                suffixStyle: Theme.of(context).textTheme.bodyLarge,
               ),
+              onChanged: (text) {
+                if (text.isNotEmpty) {
+                  double newIngredientValue =
+                      (int.parse(text) * ratio.value).toDouble();
+                  newIngredientControllers[index].text =
+                      newIngredientValue % 1 == 0
+                          ? newIngredientValue.toInt().toString()
+                          : newIngredientValue.toStringAsFixed(1);
+                } else {
+                  newIngredientControllers[index].text = "";
+                }
+              },
             ),
           ),
           const Expanded(
@@ -135,7 +197,8 @@ class ServingSizesState extends State<ServingSizes> {
           Expanded(
             flex: 3,
             child: TextField(
-              enabled: false,
+              readOnly: true,
+              controller: newIngredientControllers[index],
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -144,7 +207,11 @@ class ServingSizesState extends State<ServingSizes> {
                 floatingLabelAlignment: FloatingLabelAlignment.center,
                 alignLabelWithHint: true,
                 hintText: ingredients[index].unit,
-                suffixText: ingredients[index].unit,
+                suffix: Align(
+                  widthFactor: 0,
+                  child: Text(ingredients[index].unit),
+                ),
+                suffixStyle: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
