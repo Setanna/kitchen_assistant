@@ -35,22 +35,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(widget.title),
-          centerTitle: true),
-      body: Center(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ServingSizes()),
-                );
-              },
-              child: const Text("Serving Sizes"),
-            )
-          ],
+      appBar: AppBar(title: Text(widget.title), centerTitle: true),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/background.jpg"), fit: BoxFit.cover)),
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 40, right: 40, bottom: 0),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ServingSizes()),
+                    );
+                  },
+                  child: const Text("Serving Sizes"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 40, right: 40, bottom: 0),
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text("Future Feature"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
