@@ -14,6 +14,12 @@ class ThemeClass {
         backgroundColor: _themeClass.lightPrimaryColor,
         foregroundColor: Colors.white,
       ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Colors.lightBlue,
+        contentTextStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       iconTheme: IconThemeData(
         color: _themeClass.lightPrimaryColor,
       ),
@@ -60,6 +66,12 @@ class ThemeClass {
           foregroundColor: Colors.white),
       iconTheme: IconThemeData(
         color: _themeClass.darkPrimaryColor,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Colors.indigoAccent,
+        contentTextStyle: TextStyle(
+          color: Colors.white,
+        ),
       ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.white),
