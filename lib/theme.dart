@@ -14,6 +14,12 @@ class ThemeClass {
         backgroundColor: _themeClass.lightPrimaryColor,
         foregroundColor: Colors.white,
       ),
+      snackBarTheme: const SnackBarThemeData(
+        actionBackgroundColor: Colors.lightBlue,
+        contentTextStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       iconTheme: IconThemeData(
         color: _themeClass.lightPrimaryColor,
       ),

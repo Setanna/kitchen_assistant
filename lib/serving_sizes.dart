@@ -238,66 +238,104 @@ class ServingSizesState extends State<ServingSizes> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Add ingredient',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                flex: 3,
-                child: TextField(
-                  controller: ingredient,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    labelText: "Ingredient name",
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
-                    alignLabelWithHint: true,
-                    hintText: "Ingredient name",
+        return ScaffoldMessenger(
+          child: Builder(builder: (BuildContext context) {
+            return Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Column(
+                children: [
+                  Expanded(
+                    child: AlertDialog(
+                      title: Text(
+                        'Add ingredient',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      content: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: TextField(
+                              controller: ingredient,
+                              decoration: const InputDecoration(
+                                labelText: "Ingredient name",
+                                hintText: "Ingredient name",
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: TextField(
+                              controller: unit,
+                              decoration: const InputDecoration(
+                                labelText: "Unit",
+                                hintText: "Kg, dl, amount",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle:
+                                        Theme.of(context).textTheme.labelLarge,
+                                  ),
+                                  child: const Text('Save'),
+                                  onPressed: () {
+                                    if (ingredient.text.trim().isNotEmpty &&
+                                        unit.text.trim().isNotEmpty) {
+                                      ingredients.insert(
+                                          ingredients.length,
+                                          Ingredient(
+                                              ingredient.text, unit.text));
+                                      reversedIngredients =
+                                          ingredients.reversed.toList();
+                                      setState(() {});
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text(
+                                            "Please fill ingredient name and unit"),
+                                        duration: Duration(milliseconds: 1000),
+                                      ));
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle:
+                                        Theme.of(context).textTheme.labelLarge,
+                                  ),
+                                  child: const Text('Discard'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              Expanded(
-                flex: 3,
-                child: TextField(
-                  controller: unit,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    labelText: "Unit",
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
-                    alignLabelWithHint: true,
-                    hintText: "Kg, dl, amount",
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Save'),
-              onPressed: () {
-                ingredients.insert(
-                    ingredients.length, Ingredient(ingredient.text, unit.text));
-                reversedIngredients = ingredients.reversed.toList();
-                setState(() {});
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Discard'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            );
+          }),
         );
       },
     );
