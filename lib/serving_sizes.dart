@@ -86,8 +86,9 @@ class ServingSizesState extends State<ServingSizes> {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: const InputDecoration(
-                    labelText: 'Original Servings',
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    label: Center(
+                      child: Text('Original Servings'),
+                    ),
                     alignLabelWithHint: true,
                     hintText: 'Serving size',
                   ),
@@ -114,8 +115,9 @@ class ServingSizesState extends State<ServingSizes> {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: const InputDecoration(
-                    labelText: 'New Servings',
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    label: Center(
+                      child: Text('New Servings'),
+                    ),
                     alignLabelWithHint: true,
                     hintText: 'Serving size',
                   ),
@@ -139,11 +141,13 @@ class ServingSizesState extends State<ServingSizes> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    _dialogBuilder(context);
-                  },
-                  child: const Text("Add Ingredient"))
+              Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        _dialogBuilder(context);
+                      },
+                      child: const Text("Add Ingredient"))),
             ],
           ),
         ],
@@ -176,9 +180,10 @@ class ServingSizesState extends State<ServingSizes> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                labelText:
-                    "${ingredients[index].name} (${ingredients[index].unit})",
-                floatingLabelAlignment: FloatingLabelAlignment.center,
+                label: Center(
+                  child: Text(
+                      "${ingredients[index].name} (${ingredients[index].unit})"),
+                ),
                 alignLabelWithHint: true,
                 hintText: ingredients[index].unit,
               ),
@@ -212,9 +217,10 @@ class ServingSizesState extends State<ServingSizes> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                labelText:
-                    "${ingredients[index].name} (${ingredients[index].unit})",
-                floatingLabelAlignment: FloatingLabelAlignment.center,
+                label: Center(
+                  child: Text(
+                      "${ingredients[index].name} (${ingredients[index].unit})"),
+                ),
                 alignLabelWithHint: true,
                 hintText: ingredients[index].unit,
               ),
